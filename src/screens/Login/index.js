@@ -1,26 +1,26 @@
 import './login.css'
+import PropTypes from 'prop-types'
 import React, { useState } from 'react'
+import { autheticateUser } from '../../utils/authAPI'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 
-const Login = () => {
+const Login = ({ setIsLoggedIn, setIsLoading }) => {
   const history = useHistory()
   const [user, setUser] = useState({ username: '', password: '' })
 
-  // const handleLogin = async () => {
-  //   setIsLoading(true)
-  //   try {
-  //     const result = await autheticateUser({
-  //       username: 'user',
-  //       password: '123',
-  //     })
-  //     setisLoggedIn(result.data.isAuth)
-  //     setIsLoading(false)
-  //   } catch (error) {
-  //     setisLoggedIn(error.data.isAuth)
-  //     setIsLoading(false)
-  //     alert(error.message)
-  //   }
-  // }
+  const handleLogin = async () => {
+    setIsLoading(true)
+    try {
+      const result = await autheticateUser(user)
+      setIsLoggedIn(result.data.isAuth)
+      result.data.isAuth ? history.push('/private') : null
+      setIsLoading(false)
+    } catch (error) {
+      setIsLoggedIn(error.data.isAuth)
+      setIsLoading(false)
+      alert(error.message)
+    }
+  }
 
   return (
     <div className={'login-wrapper'}>
@@ -62,7 +62,7 @@ const Login = () => {
         <button
           className={'button'}
           aria-label="Log In"
-          onClick={() => history.push('/private')}>
+          onClick={() => handleLogin()}>
           ログイン
         </button>
       </div>
@@ -73,6 +73,11 @@ const Login = () => {
       </div>
     </div>
   )
+}
+
+Login.propTypes = {
+  setIsLoggedIn: PropTypes.func,
+  setIsLoading: PropTypes.func,
 }
 
 export default Login

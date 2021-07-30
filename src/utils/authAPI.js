@@ -1,5 +1,5 @@
 // A mock function to mimic making an async request for data
-export function autheticateUser(user) {
+export const autheticateUser = user => {
   const { username, password } = user
   return new Promise((resolve, reject) =>
     username === 'user' && password === '123'
