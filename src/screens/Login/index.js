@@ -17,7 +17,7 @@ const Login = ({ setIsLoggedIn, setIsLoading }) => {
       window.localStorage.setItem('isLoggedIn', true)
       setIsLoading(false)
     } catch (error) {
-      setIsLoggedIn(error.data.isAuth)
+      setIsLoggedIn(false)
       window.localStorage.setItem('isLoggedIn', false)
       setIsLoading(false)
       alert(error.message)
