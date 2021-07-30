@@ -14,9 +14,11 @@ const Login = ({ setIsLoggedIn, setIsLoading }) => {
       const result = await autheticateUser(user)
       setIsLoggedIn(result.data.isAuth)
       result.data.isAuth ? history.push('/private') : null
+      window.localStorage.setItem('isLoggedIn', true)
       setIsLoading(false)
     } catch (error) {
       setIsLoggedIn(error.data.isAuth)
+      window.localStorage.setItem('isLoggedIn', false)
       setIsLoading(false)
       alert(error.message)
     }

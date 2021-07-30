@@ -7,6 +7,7 @@ const PrivateScreen = ({ setIsLoggedIn }) => {
   const history = useHistory()
   const handleLogOut = () => {
     setIsLoggedIn(false)
+    window.localStorage.setItem('isLoggedIn', false)
     history.replace('/')
   }
   return (

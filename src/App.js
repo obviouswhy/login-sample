@@ -7,7 +7,9 @@ import AuthenticatedRoute from './utils/AuthenticatedRoute'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    window.localStorage.getItem('isLoggedIn') === 'true' || false,
+  )
   const [isLoading, setIsLoading] = useState(false)
   return (
     <div className="App">
